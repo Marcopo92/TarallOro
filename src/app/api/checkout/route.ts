@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import stripe from "@/lib/stripe";
+import getStripe from "@/lib/stripe";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Crea la sessione Stripe Checkout
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
       customer_email: customer.email,

@@ -3,7 +3,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import stripe from "@/lib/stripe";
+import getStripe from "@/lib/stripe";
 import { sendOrderConfirmation } from "@/lib/email";
 
 export async function POST(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Verifica la firma del webhook per sicurezza
-    event = stripe.webhooks.constructEvent(
+    event = getStripe().webhooks.constructEvent(
       body,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
