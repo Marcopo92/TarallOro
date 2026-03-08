@@ -1,0 +1,106 @@
+/* Stili globali per TarallOro */
+@import "tailwindcss";
+
+/* Palette colori mediterranea personalizzata */
+@theme inline {
+  --color-warm-white: #FFF8F0;
+  --color-warm-white-dark: #F5EDE0;
+  --color-gold: #B8860B;
+  --color-gold-light: #D4A843;
+  --color-gold-dark: #8B6508;
+  --color-olive: #556B2F;
+  --color-olive-light: #6B8E23;
+  --color-olive-dark: #3B4F1F;
+  --color-terracotta: #C75B39;
+  --color-terracotta-light: #E07B5F;
+  --color-terracotta-dark: #A0442A;
+  --color-brown: #5C4033;
+  --color-brown-light: #8B6F5E;
+  --color-cream: #FFFDD0;
+}
+
+/* Reset base e stili generali */
+body {
+  background-color: #FFF8F0;
+  color: #333;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+/* Scrollbar personalizzata */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFF8F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #B8860B;
+  border-radius: 4px;
+}
+
+/* Animazione per il fade-in degli elementi */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Stile per i bottoni principali */
+.btn-gold {
+  background-color: #B8860B;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+.btn-gold:hover {
+  background-color: #D4A843;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+}
+
+.btn-olive {
+  background-color: #556B2F;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+.btn-olive:hover {
+  background-color: #6B8E23;
+  transform: translateY(-2px);
+}
+
+/* Card prodotto con effetto hover */
+.product-card {
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Immagine prodotto con zoom al hover */
+.product-image {
+  transition: transform 0.5s ease;
+}
+.product-card:hover .product-image {
+  transform: scale(1.05);
+}

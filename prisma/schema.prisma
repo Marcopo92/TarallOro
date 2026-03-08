@@ -1,0 +1,75 @@
+// Schema del database per TarallOro
+// Definisce le tabelle per prodotti, ordini e admin
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Tabella prodotti - contiene tutti i prodotti del catalogo
+model Product {
+  id            String      @id @default(cuid())
+  name          String      // Nome del prodotto in italiano
+  nameEn        String      @default("") // Nome in inglese
+  description   String      // Descrizione in italiano
+  descriptionEn String      @default("") // Descrizione in inglese
+  price         Float       // Prezzo in euro
+  image         String      @default("") // URL immagine da Cloudinary
+  category      String      @default("") // Categoria del prodotto
+  featured      Boolean     @default(false) // In evidenza in homepage
+  inStock       Boolean     @default(true) // Disponibilità
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  orderItems    OrderItem[]
+}
+
+// Tabella ordini
+model Order {
+  id              String      @id @default(cuid())
+  customerName    String
+  customerEmail   String
+  customerPhone   String      @default("")
+  shippingAddress String
+  shippingCity    String      @default("")
+  shippingZip     String      @default("")
+  shippingCountry String      @default("IT")
+  total           Float
+  status          String      @default("pending") // pending, paid, shipped, delivered
+  stripeSessionId String      @default("")
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  items           OrderItem[]
+}
+
+// Tabella elementi ordine
+model OrderItem {
+  id        String  @id @default(cuid())
+  quantity  Int
+  price     Float
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+}
+
+// Tabella admin
+model Admin {
+  id       String @id @default(cuid())
+  username String @unique
+  password String
+}
+
+// Tabella messaggi contatto
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String   @default("")
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
